@@ -1,13 +1,18 @@
 import pytest
 import aiohttp
 import json
+import os
+from dotenv import load_dotenv
 from unittest.mock import AsyncMock, patch
 from config.prompts import PROMPTS
 from adapters.llm_adapter import LLMAdapter
 
+load_dotenv()
+api_key = os.getenv("GROQ_API_KEY")
+
 # Mock configuration for LLMAdapter
 CONFIG = {
-    "api_key": "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",
+    "api_key": api_key,
     "api_url": "https://api.groq.com/openai/v1/chat/completions",
     "model": "llama3-70b-8192",
     "max_tokens": 4000,
