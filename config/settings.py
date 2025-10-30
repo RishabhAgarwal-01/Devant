@@ -19,8 +19,10 @@ def load_config(config_path: str) -> Dict[str, Any]:
     
     # Add environment variables
     if "llm" in config and "api_key" not in config["llm"]:
-        api_key_env = os.environ.get("GROQ_API_KEY")
+        api_key_env = os.environ.get("GEMINI_API_KEY")
         if api_key_env:
             config["llm"]["api_key"] = api_key_env #set the api key from the environment variable
     
     return config
+
+

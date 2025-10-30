@@ -1,0 +1,14 @@
+Create a modular command-line Todo List application in Python.
+
+Split the app into the following modules:
+1. todo/models.py — Contains a Task data class with fields: id, description, completed.
+2. todo/storage.py — Handles saving/loading tasks using JSON.
+3. todo/cli.py — Provides user interaction: displaying tasks, getting input.
+4. todo/main.py — The main script running the app loop with actions: add, list, complete, exit.
+
+Each module should:
+- Follow clean, readable Python standards.
+- Handle basic error conditions.
+- Be importable and testable separately.
+
+Start with models.py. Generate all files one by one in the specified order. Do not generate test files.

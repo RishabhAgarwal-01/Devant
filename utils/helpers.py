@@ -1,8 +1,11 @@
-"""Helper utilities for the AI coding agent"""
+"""
+Helper utilities for the AI Coding Agent
+"""
 import json
 from typing import Any, Dict
 import hashlib
 import os
+import platform
 
 def load_json(file_path:str) -> Dict[str, Any]:
     """Load the JSON file with the training data"""
@@ -58,14 +61,18 @@ def extract_language_from_path(file_path: str) -> str:
     
     return language_map.get(extension, "unknown")
 
+def is_windows() -> bool:
+    return platform.system() == "Windows"
+
+def win_safe_path(path: str) -> str:
+    """Convert to Windows-friendly path with backslashes"""
+    return path.replace('/', '\\') if is_windows() else path
+
 def sanitize_path(path: str) -> str:
-    """Sanitize a file path for security."""
-    # Remove potentially dangerous path components
-    path = os.path.normpath(path)
-    
-    # Ensure the path doesn't try to navigate up directories
-    if '..' in path:
-        parts = [p for p in path.split(os.sep) if p != '..']
-        path = os.sep.join(parts)
-    
-    return path
+    """Universal path sanitization"""
+    path = win_safe_path(path) if is_windows() else path.replace('\\', '/')
+    return os.path.normpath(os.path.join(*path.split(os.sep)))
+
+def normalize_line_endings(text: str) -> str:
+    """Force Unix-style line endings (LF) on Windows"""
+    return text.replace('\r\n', '\n') if is_windows() else text

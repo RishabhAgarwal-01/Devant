@@ -1,21 +1,32 @@
 {
   "llm": {
-    "api_url": "https://api.groq.com/openai/v1/chat/completions",
-    "model": "llama3-70b-8192",
-    "max_tokens": 4000,
+    "api_url": "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent",
+    "model": "gemini-2.0-flash",
+    "max_output_tokens": 4000,
     "temperature": 0.2,
-    "timeout": 30
+    "timeout": 30,
+    "rate_limit_buffer": 1.5,
+    "max_requests_per_minute": 30
+  },
+  "redis": {
+    "host": "localhost",
+    "port": 6379,
+    "db": 0
   },
   "vscode": {
     "path": "code",
     "extension_id": "devantvscode-extension"
   },
-  "working_directory": "C:/Users/hp/OneDrive/Desktop/",
+  "working_directory": "C:/Users/hp/OneDrive/Desktop/workspace",
   "logging": {
-    "level": "INFO",
+    "level": "DEBUG",
     "file": "devant.log"
   },
   "concurrency": {
     "max_workers": 5
+  },
+  "autonomous": {
+    "max_iterations": 3,
+    "quality_threshold": 0.85
   }
 }

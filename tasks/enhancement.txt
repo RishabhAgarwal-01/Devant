@@ -1,0 +1,62 @@
+{
+  "tasks": [
+    {
+      "description": "Update the `Article` model to include a `reactions` field to track 'like', 'love', 'funny', 'angry', 'sad', and 'wow' counts.",
+      "target_file": "app/database/models.py",
+      "modification_type": "add_field",
+      "field_details": {
+        "name": "reactions",
+        "type": "JSON",
+        "default_factory": {
+          "like": 0,
+          "love": 0,
+          "funny": 0,
+          "angry": 0,
+          "sad": 0,
+          "wow": 0
+        },
+        "sqlalchemy_type": "Column(JSON, default=...)",
+        "import": [
+          "from sqlalchemy import Column, JSON",
+          "from sqlalchemy.dialects.postgresql import JSONB"
+        ]
+      }
+    },
+    {
+      "description": "Add a function to increment a reaction type for a given article in the database session logic.",
+      "target_file": "app/database/session.py",
+      "modification_type": "add_function",
+      "function_details": {
+        "name": "increment_reaction",
+        "params": ["db: Session", "article_id: int", "reaction: str"],
+        "returns": "Dict[str, int]",
+        "logic": "Fetch the article by ID, increment the given reaction in the reactions dict, save and return the updated reactions."
+      }
+    },
+    {
+      "description": "Create a new POST endpoint in `app/routers/news.py` to handle article reactions by ID.",
+      "target_file": "app/routers/news.py",
+      "modification_type": "add_endpoint",
+      "endpoint_details": {
+        "path": "/articles/{article_id}/react",
+        "method": "POST",
+        "params": ["article_id: int", "reaction: str"],
+        "handler": "react_to_article",
+        "response": "Updated reactions dictionary"
+      }
+    },
+    {
+      "description": "Write a test in `tests/test_news.py` to verify that reacting to an article updates the correct count.",
+      "target_file": "tests/test_news.py",
+      "modification_type": "add_test",
+      "test_case": "Test sending a 'like' to an article and check that the count increments properly in the database."
+    },
+    {
+      "description": "Update docstrings and function-level documentation where appropriate to reflect the new reaction feature.",
+      "target_file": "app/routers/news.py",
+      "modification_type": "update_docstring",
+      "docstring_target": "react_to_article",
+      "docstring": "React to an article with an emotion. Supported reactions: like, love, funny, angry, sad, wow."
+    }
+  ]
+}

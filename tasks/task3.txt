@@ -1,0 +1,52 @@
+{
+  "task_name": "news_microservice_pipeline",
+  "description": "Build a Python microservice that fetches live news articles from the web based on a given topic, summarizes them using an LLM, and stores both the full and summarized text into a SQLite database.",
+  "requirements": {
+    "pipeline": [
+      "Accept topic or keyword as input via API",
+      "Scrape or use a news API to fetch top 5 latest articles",
+      "Extract title, content, publication date, and source URL",
+      "Use LLM (like Claude or Gemini via API) to summarize each article",
+      "Store original + summary in a local SQLite database",
+      "Provide another API to retrieve summaries by keyword or date range"
+    ],
+    "technical": {
+      "framework": "FastAPI",
+      "database": "SQLite (with SQLAlchemy)",
+      "LLM_integration": "Function call to local Gemini API or Claude Sonnet",
+      "scraping": "Use requests + BeautifulSoup or NewsAPI",
+      "code_quality": "Modular, with logging and error handling",
+      "structure": "service/ repo structure with routers, models, services, db"
+    },
+    "extra_features": [
+      "Async support for FastAPI",
+      "Retry mechanism for failed API calls",
+      "Keyword-based filtering for summaries"
+    ]
+  },
+  "evaluation_criteria": [
+    "Code is modular and readable",
+    "Handles network failures gracefully",
+    "LLM summaries are cached and stored",
+    "Scales to more than 100 articles",
+    "Tests for each major component"
+  ],
+  "output": {
+    "folders": [
+      "app/routers",
+      "app/models",
+      "app/services",
+      "app/database",
+      "tests/"
+    ],
+    "files": [
+      "main.py",
+      "app/routers/news.py",
+      "app/services/scraper.py",
+      "app/services/summarizer.py",
+      "app/database/models.py",
+      "app/database/session.py",
+      "tests/test_news.py"
+    ]
+  }
+}

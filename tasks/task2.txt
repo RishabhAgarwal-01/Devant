@@ -1,0 +1,70 @@
+Task: Create a modular RESTful API for managing a collection of books using Flask.
+
+Project Structure:
+
+The application should be structured into the following modules and files:
+
+book_api/
+├── config/
+│   └── config.ini
+├── models/
+│   └── book.py
+├── api/
+│   ├── __init__.py
+│   ├── resources/
+│   │   └── book_resource.py
+│   └── routes.py
+├── main.py
+├── requirements.txt
+└── README.md
+Module Breakdown:
+
+book_api/config/config.ini:
+
+This file should contain basic configuration settings for the API. For this task, include a setting for the API's base URL.
+Use the standard INI format.
+book_api/models/book.py:
+
+Define a Book data class with the following fields: id (integer, unique), title (string), author (string), publication_year (integer).
+Include a method within the Book class to represent the book as a dictionary for easy serialization.
+book_api/api/__init__.py:
+
+This file should make the api directory a Python package. It can be empty for this task.
+book_api/api/resources/book_resource.py:
+
+This module should contain a BookResource class that handles the logic for interacting with book data.
+Implement the following methods:
+get_all(): Returns a list of all books (for simplicity, you can store books in an in-memory list or dictionary for this task).
+get_by_id(book_id): Returns a specific book based on its ID. Handle the case where the book is not found.
+create(book_data): Creates a new book and adds it to the collection. It should take a dictionary of book data as input and return the newly created book object.
+update(book_id, book_data): Updates an existing book with the given ID using the provided book data. Handle the case where the book is not found.
+delete(book_id): Deletes a book with the given ID. Handle the case where the book is not found.
+book_api/api/routes.py:
+
+This module should define the API routes using Flask.
+Map the following URLs to the BookResource methods:
+/books (GET): Calls BookResource.get_all() to list all books.
+/books/{book_id} (GET): Calls BookResource.get_by_id(book_id) to retrieve a specific book.
+/books (POST): Calls BookResource.create(request.json) to add a new book.
+/books/{book_id} (PUT): Calls BookResource.update(book_id, request.json) to update a book.
+/books/{book_id} (DELETE): Calls BookResource.delete(book_id) to delete a book.
+Ensure proper HTTP methods are used for each route.
+book_api/main.py:
+
+This is the main script that initializes the Flask application.
+Load the configuration from config/config.ini.
+Register the API routes defined in api/routes.py.
+Include a basic entry point to run the Flask development server.
+book_api/requirements.txt:
+
+List the necessary Python dependencies for this project (at least Flask).
+book_api/README.md:
+
+Create a simple README file with a brief description of the API and instructions on how to run it (including installing dependencies).
+Constraints and Guidelines:
+
+Follow clean and readable Python standards.
+Implement basic error handling (e.g., handling cases where a book is not found).
+Each module should be importable and potentially testable (though you won't be generating tests for this task).
+Use Flask for creating the RESTful API.
+For simplicity, you can use an in-memory data structure (like a list or dictionary) to store the book data. No need for a database for this task.
